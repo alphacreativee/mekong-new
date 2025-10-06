@@ -75,3 +75,16 @@ body {
   -webkit-font-smoothing: auto !important;
   -moz-osx-font-smoothing: grayscale !important;
 }
+
+.donut {
+  padding: 0 130px;
+}
+.donut .dbcontent {
+  padding: 16px;
+}
+.donut .dbcontent.active {
+  background-color: #b70004;
+}
+.donut .dbcontent.active p {
+  color: #fff;
+}

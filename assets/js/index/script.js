@@ -20,8 +20,8 @@ function donut() {
     { label: "LeaderShip", value: 10, link: "#", content: "6" },
   ];
 
-  var width = 450,
-    height = 450,
+  var width = 400,
+    height = 400,
     radius = Math.min(width, height) / 2;
 
   var colour = d3.scale.category20();
@@ -55,8 +55,12 @@ function donut() {
     })
     .on("click", function (d, i) {
       var showContent = seedData[i].content;
-      $(".dbcontent").fadeOut("fast");
-      $(".dbcontent--" + showContent).fadeIn("slow");
+
+      // Remove active class from all .dbcontent elements
+      d3.selectAll(".dbcontent").classed("active", false);
+
+      // Add active class to the corresponding .dbcontent
+      d3.select(".dbcontent--" + showContent).classed("active", true);
 
       // Remove active class from all arcs
       g.classed("active", false);

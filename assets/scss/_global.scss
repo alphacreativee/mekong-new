@@ -1,0 +1,12 @@
+.donut {
+  padding: 0 130px;
+  .dbcontent {
+    padding: 16px;
+    &.active {
+      background-color: #b70004;
+      p {
+        color: #fff;
+      }
+    }
+  }
+}
