@@ -50,17 +50,57 @@ function donut() {
     .data(pie(seedData))
     .enter()
     .append("g")
-    .attr("class", "arc")
+    .attr("class", function (d, i) {
+      return i === 0 ? "arc active" : "arc"; // Set initial active state for first arc
+    })
     .on("click", function (d, i) {
       var showContent = seedData[i].content;
       $(".dbcontent").fadeOut("fast");
       $(".dbcontent--" + showContent).fadeIn("slow");
+
+      // Remove active class from all arcs
+      g.classed("active", false);
+
+      // Set active state for the clicked arc
+      d3.select(this).classed("active", true);
+
+      // Update colors based on active state
+      updateColors();
+    })
+    .on("mouseover", function () {
+      // Set hover state (red background, white text) if not active
+      if (!d3.select(this).classed("active")) {
+        d3.select(this).select("path").attr("fill", "#b71c1c");
+        d3.select(this).select("textPath").attr("fill", "#fff");
+      }
+    })
+    .on("mouseout", function (d, i) {
+      // Reset to default state when mouse leaves if not active
+      if (!d3.select(this).classed("active")) {
+        d3.select(this).select("path").attr("fill", "#fff");
+        d3.select(this).select("textPath").attr("fill", "#000");
+      }
     });
+
+  // Function to update colors based on active state
+  function updateColors() {
+    g.selectAll("path").attr("fill", function () {
+      return d3.select(this.parentNode).classed("active") ? "#b71c1c" : "#fff";
+    });
+    g.selectAll("textPath").attr("fill", function () {
+      return d3.select(this.parentNode.parentNode).classed("active")
+        ? "#fff"
+        : "#000";
+    });
+  }
+
+  // Set initial colors
+  updateColors();
 
   g.append("path")
     .attr("d", arc)
     .attr("fill", function (d, i) {
-      return colour(i);
+      return i === 0 ? "#b71c1c" : "#fff"; // Initial fill
     });
 
   // Add text along the circular path
@@ -98,13 +138,16 @@ function donut() {
     group
       .append("text")
       .style("pointer-events", "none")
-
       .append("textPath")
       .attr("xlink:href", "#textPath-" + i)
       .style("text-anchor", "middle")
       .attr("startOffset", "25%") // Center horizontally on path
       .attr("dy", "-0.5em")
-      .attr("fill", "#fff")
+      .attr("fill", function () {
+        return d3.select(this.parentNode.parentNode).classed("active")
+          ? "#fff"
+          : "#000";
+      })
       .attr("font-size", fontSize)
       .attr("font-weight", "700")
       .attr("letter-spacing", "0.5px")
