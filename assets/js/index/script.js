@@ -13,8 +13,8 @@ gsap.ticker.lagSmoothing(0);
 function donut() {
   var seedData = [
     { label: "Measurable", value: 10, link: "#", content: "1" },
-    { label: "Differentiation", value: 10, link: "#", content: "2" },
-    { label: "Clear ", value: 10, link: "#", content: "3" },
+    { label: "Differentiation", value: 20, link: "#", content: "2" },
+    { label: "Clear ", value: 5, link: "#", content: "3" },
     { label: "Result", value: 10, link: "#", content: "4" },
     { label: "Question ", value: 10, link: "#", content: "5" },
     { label: "LeaderShip", value: 10, link: "#", content: "6" },
