@@ -178,7 +178,7 @@ function donut() {
     .append("circle")
     .attr("cx", 0)
     .attr("cy", 0)
-    .attr("r", 90)
+    .attr("r", 85)
     .attr("fill", "#b71c1c");
 
   // Add "VISION" text in the center
