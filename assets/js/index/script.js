@@ -188,9 +188,8 @@ function donut() {
     .style("text-anchor", "middle")
     .attr("class", "inner-circle-text")
     .attr("fill", "#fff")
-    .attr("font-size", "40px")
+    .attr("font-size", "24px")
     .attr("font-weight", "bold")
-    .attr("letter-spacing", "2px")
     .text("VISION");
 
   // Setup navigation buttons
