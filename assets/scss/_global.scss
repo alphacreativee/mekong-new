@@ -4,6 +4,7 @@
     padding: 16px;
     display: block !important;
     opacity: 1 !important;
+    user-select: none;
     &.active {
       background-color: #b70004;
       p,

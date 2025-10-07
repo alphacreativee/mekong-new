@@ -83,6 +83,7 @@ body {
   padding: 16px;
   display: block !important;
   opacity: 1 !important;
+  user-select: none;
 }
 .donut .dbcontent.active {
   background-color: #b70004;
