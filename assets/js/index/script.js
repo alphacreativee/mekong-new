@@ -11,13 +11,25 @@ gsap.ticker.add((time) => {
 gsap.ticker.lagSmoothing(0);
 // end lenis
 function donut() {
-  var seedData = [
-    { label: "Measurable", value: 10, link: "#", content: "1" },
-    { label: "Differentiation", value: 20, link: "#", content: "2" },
-    { label: "Clear ", value: 5, link: "#", content: "3" },
-    { label: "Result", value: 10, link: "#", content: "4" },
-    { label: "Question ", value: 10, link: "#", content: "5" },
-  ];
+  // Get seedData from HTML elements
+  var seedData = [];
+  var dbcontents = document.querySelectorAll(".dbcontent");
+
+  dbcontents.forEach(function (element, index) {
+    var className = element.className.match(/dbcontent--(\d+)/)[1];
+    var panelTitle = element.querySelector(".panel-title");
+    var label = panelTitle
+      ? panelTitle.textContent.trim()
+      : "Label " + (index + 1);
+    var value = parseInt(element.getAttribute("data-value")) || 10;
+
+    seedData.push({
+      label: label,
+      value: value,
+      link: "#",
+      content: className,
+    });
+  });
 
   var width = 400,
     height = 400,

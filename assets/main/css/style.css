@@ -81,11 +81,14 @@ body {
 }
 .donut .dbcontent {
   padding: 16px;
+  display: block !important;
+  opacity: 1 !important;
 }
 .donut .dbcontent.active {
   background-color: #b70004;
 }
-.donut .dbcontent.active p {
+.donut .dbcontent.active p,
+.donut .dbcontent.active .panel-title {
   color: #fff;
 }
 .donut .nav-arrows {
@@ -125,4 +128,8 @@ body {
 }
 .donut .panelBox .dbcontent:nth-child(4) {
   margin-left: 20px;
+}
+.donut .panelBox .panel-title {
+  margin-bottom: 8px;
+  font-weight: bold;
 }

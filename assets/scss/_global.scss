@@ -2,9 +2,12 @@
   padding: 0 130px;
   .dbcontent {
     padding: 16px;
+    display: block !important;
+    opacity: 1 !important;
     &.active {
       background-color: #b70004;
-      p {
+      p,
+      .panel-title {
         color: #fff;
       }
     }
@@ -56,6 +59,10 @@
       &:nth-child(4) {
         margin-left: 20px;
       }
+    }
+    .panel-title {
+      margin-bottom: 8px;
+      font-weight: bold;
     }
   }
 }
