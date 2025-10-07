@@ -31,8 +31,8 @@ function donut() {
     });
   });
 
-  var width = 400,
-    height = 400,
+  var width = 350,
+    height = 350,
     radius = Math.min(width, height) / 2;
 
   var currentIndex = 0; // Track current active index
@@ -151,7 +151,7 @@ function donut() {
       .style("fill", "none")
       .style("stroke", "none");
 
-    var fontSize = "12px";
+    var fontSize = "10px";
 
     group
       .append("text")
@@ -168,7 +168,7 @@ function donut() {
       })
       .attr("font-size", fontSize)
       .attr("font-weight", "700")
-      .attr("letter-spacing", "0.5px")
+
       .style("text-transform", "uppercase")
       .text(seedData[i].label);
   });
@@ -178,7 +178,7 @@ function donut() {
     .append("circle")
     .attr("cx", 0)
     .attr("cy", 0)
-    .attr("r", 100)
+    .attr("r", 90)
     .attr("fill", "#b71c1c");
 
   // Add "VISION" text in the center
