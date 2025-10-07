@@ -88,3 +88,32 @@ body {
 .donut .dbcontent.active p {
   color: #fff;
 }
+.donut .nav-arrows {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 30px;
+}
+.donut .arrow-btn {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.donut .arrow-btn:hover {
+  background: #b70004;
+  border: 1px solid #b70004;
+}
+.donut .arrow-btn svg {
+  width: auto;
+  height: auto;
+}
+.donut .arrow-btn:hover svg path {
+  fill: #fff;
+}

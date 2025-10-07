@@ -24,7 +24,7 @@ function donut() {
     height = 400,
     radius = Math.min(width, height) / 2;
 
-  var colour = d3.scale.category20();
+  var currentIndex = 0; // Track current active index
 
   var arc = d3.svg
     .arc()
@@ -51,40 +51,52 @@ function donut() {
     .enter()
     .append("g")
     .attr("class", function (d, i) {
-      return i === 0 ? "arc active" : "arc"; // Set initial active state for first arc
+      return i === 0 ? "arc active" : "arc";
+    })
+    .each(function (d, i) {
+      d.index = i; // Store the index in the data
     })
     .on("click", function (d, i) {
-      var showContent = seedData[i].content;
-
-      // Remove active class from all .dbcontent elements
-      d3.selectAll(".dbcontent").classed("active", false);
-
-      // Add active class to the corresponding .dbcontent
-      d3.select(".dbcontent--" + showContent).classed("active", true);
-
-      // Remove active class from all arcs
-      g.classed("active", false);
-
-      // Set active state for the clicked arc
-      d3.select(this).classed("active", true);
-
-      // Update colors based on active state
-      updateColors();
+      currentIndex = d.index;
+      activateArc(d.index);
     })
-    .on("mouseover", function () {
-      // Set hover state (red background, white text) if not active
+    .on("mouseover", function (d) {
       if (!d3.select(this).classed("active")) {
         d3.select(this).select("path").attr("fill", "#b71c1c");
         d3.select(this).select("textPath").attr("fill", "#fff");
       }
     })
-    .on("mouseout", function (d, i) {
-      // Reset to default state when mouse leaves if not active
+    .on("mouseout", function (d) {
       if (!d3.select(this).classed("active")) {
         d3.select(this).select("path").attr("fill", "#fff");
         d3.select(this).select("textPath").attr("fill", "#000");
       }
     });
+
+  // Function to activate a specific arc by index
+  function activateArc(index) {
+    currentIndex = index; // Update currentIndex
+    var showContent = seedData[index].content;
+
+    // Remove active class from all .dbcontent elements
+    d3.selectAll(".dbcontent").classed("active", false);
+
+    // Add active class to the corresponding .dbcontent
+    d3.select(".dbcontent--" + showContent).classed("active", true);
+
+    // Remove active class from all arcs
+    g.classed("active", false);
+
+    // Set active state for the selected arc
+    g.each(function (d) {
+      if (d.index === index) {
+        d3.select(this).classed("active", true);
+      }
+    });
+
+    // Update colors based on active state
+    updateColors();
+  }
 
   // Function to update colors based on active state
   function updateColors() {
@@ -104,21 +116,16 @@ function donut() {
   g.append("path")
     .attr("d", arc)
     .attr("fill", function (d, i) {
-      return i === 0 ? "#b71c1c" : "#fff"; // Initial fill
+      return i === 0 ? "#b71c1c" : "#fff";
     });
 
   // Add text along the circular path
   g.each(function (d, i) {
     var group = d3.select(this);
-
-    // Radius for text path (middle of the donut ring)
     var textRadius = (radius - 80 + radius - 25) / 2;
-
-    // Calculate the mid-angle for accurate centering
     var midAngle = (d.startAngle + d.endAngle) / 2;
-    var flipText = midAngle > Math.PI; // Flip text if in the bottom half
+    var flipText = midAngle > Math.PI;
 
-    // Create FULL arc for the text path
     var textArc = d3.svg
       .arc()
       .innerRadius(textRadius)
@@ -126,7 +133,6 @@ function donut() {
       .startAngle(d.startAngle)
       .endAngle(d.endAngle);
 
-    // Append an invisible path for the text to follow
     group
       .append("path")
       .attr("id", "textPath-" + i)
@@ -134,18 +140,15 @@ function donut() {
       .style("fill", "none")
       .style("stroke", "none");
 
-    // Dynamic font size based on label length
-    var textLength = seedData[i].label.length;
-    var fontSize = "12px"; // Consistent font size
+    var fontSize = "12px";
 
-    // Append text and textPath with dynamic centering
     group
       .append("text")
       .style("pointer-events", "none")
       .append("textPath")
       .attr("xlink:href", "#textPath-" + i)
       .style("text-anchor", "middle")
-      .attr("startOffset", "25%") // Center horizontally on path
+      .attr("startOffset", "25%")
       .attr("dy", "-0.5em")
       .attr("fill", function () {
         return d3.select(this.parentNode.parentNode).classed("active")
@@ -178,6 +181,20 @@ function donut() {
     .attr("font-weight", "bold")
     .attr("letter-spacing", "2px")
     .text("VISION");
+
+  // Setup navigation buttons
+  document.getElementById("prevBtn").addEventListener("click", function () {
+    currentIndex = (currentIndex - 1 + seedData.length) % seedData.length;
+    activateArc(currentIndex);
+  });
+
+  document.getElementById("nextBtn").addEventListener("click", function () {
+    currentIndex = (currentIndex + 1) % seedData.length;
+    activateArc(currentIndex);
+  });
+
+  // Make activateArc accessible globally for the buttons
+  window.activateDonutArc = activateArc;
 }
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
