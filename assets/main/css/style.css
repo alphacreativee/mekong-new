@@ -96,7 +96,6 @@ body {
   display: flex;
   gap: 15px;
   justify-content: center;
-  margin-top: 30px;
 }
 .donut .arrow-btn {
   width: 54px;
@@ -120,6 +119,16 @@ body {
 }
 .donut .arrow-btn:hover svg path {
   fill: #fff;
+}
+.donut-chart {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-direction: column;
+}
+.donut-chart-wrapper {
+  display: flex;
+  align-items: center;
 }
 .donut .panelBox .dbcontent:nth-child(2) {
   margin-left: 20px;
