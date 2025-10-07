@@ -153,6 +153,11 @@ body {
   line-height: 24px;
   font-weight: bold;
 }
+.logos-name {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: normal;
+}
 .logos-list {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
