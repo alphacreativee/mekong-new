@@ -7,6 +7,7 @@
     user-select: none;
     &.active {
       background-color: #b70004;
+
       p,
       .panel-title {
         color: #fff;
@@ -51,6 +52,8 @@
   }
   .panelBox {
     .dbcontent {
+      &:nth-child(1) {
+      }
       &:nth-child(2) {
         margin-left: 20px;
       }
