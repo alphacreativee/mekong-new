@@ -41,4 +41,21 @@
   .arrow-btn:hover svg path {
     fill: #fff;
   }
+  &-wrapper {
+    // display: flex;
+    // align-items: center;
+  }
+  .panelBox {
+    .dbcontent {
+      &:nth-child(2) {
+        margin-left: 20px;
+      }
+      &:nth-child(3) {
+        margin-left: 40px;
+      }
+      &:nth-child(4) {
+        margin-left: 20px;
+      }
+    }
+  }
 }

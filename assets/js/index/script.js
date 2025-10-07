@@ -17,7 +17,6 @@ function donut() {
     { label: "Clear ", value: 5, link: "#", content: "3" },
     { label: "Result", value: 10, link: "#", content: "4" },
     { label: "Question ", value: 10, link: "#", content: "5" },
-    { label: "LeaderShip", value: 10, link: "#", content: "6" },
   ];
 
   var width = 400,
@@ -28,7 +27,7 @@ function donut() {
 
   var arc = d3.svg
     .arc()
-    .innerRadius(radius - 80)
+    .innerRadius(radius - 70)
     .outerRadius(radius - 10);
 
   var pie = d3.layout
@@ -122,7 +121,7 @@ function donut() {
   // Add text along the circular path
   g.each(function (d, i) {
     var group = d3.select(this);
-    var textRadius = (radius - 80 + radius - 25) / 2;
+    var textRadius = (radius - 80 + radius - 15) / 2;
     var midAngle = (d.startAngle + d.endAngle) / 2;
     var flipText = midAngle > Math.PI;
 
