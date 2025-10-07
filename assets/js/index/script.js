@@ -31,15 +31,15 @@ function donut() {
     });
   });
 
-  var width = 350,
-    height = 350,
+  var width = 330,
+    height = 330,
     radius = Math.min(width, height) / 2;
 
   var currentIndex = 0; // Track current active index
 
   var arc = d3.svg
     .arc()
-    .innerRadius(radius - 70)
+    .innerRadius(radius - 60)
     .outerRadius(radius - 10);
 
   var pie = d3.layout
@@ -133,7 +133,7 @@ function donut() {
   // Add text along the circular path
   g.each(function (d, i) {
     var group = d3.select(this);
-    var textRadius = (radius - 80 + radius - 15) / 2;
+    var textRadius = (radius - 80 + radius - 5) / 2;
     var midAngle = (d.startAngle + d.endAngle) / 2;
     var flipText = midAngle > Math.PI;
 
