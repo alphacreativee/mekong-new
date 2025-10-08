@@ -140,14 +140,11 @@ body {
     justify-content: center;
   }
 }
-.donut .panelBox .dbcontent:nth-child(2) {
+.donut .panelBox .dbcontent.ml-20 {
   margin-left: 20px;
 }
-.donut .panelBox .dbcontent:nth-child(3) {
+.donut .panelBox .dbcontent.ml-40 {
   margin-left: 40px;
-}
-.donut .panelBox .dbcontent:nth-child(4) {
-  margin-left: 20px;
 }
 @media (max-width: 991px) {
   .donut .panelBox .dbcontent {

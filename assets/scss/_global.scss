@@ -67,14 +67,21 @@
     .dbcontent {
       &:nth-child(1) {
       }
-      &:nth-child(2) {
+
+      // &:nth-child(2) {
+      //   margin-left: 20px;
+      // }
+      // &:nth-child(3) {
+      //   margin-left: 40px;
+      // }
+      // &:nth-child(4) {
+      //   margin-left: 20px;
+      // }
+      &.ml-20 {
         margin-left: 20px;
       }
-      &:nth-child(3) {
+      &.ml-40 {
         margin-left: 40px;
-      }
-      &:nth-child(4) {
-        margin-left: 20px;
       }
       @media (max-width: 991px) {
         margin-left: 0 !important;
