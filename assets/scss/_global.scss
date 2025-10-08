@@ -10,6 +10,8 @@
     display: block !important;
     opacity: 1 !important;
     user-select: none;
+    border-bottom: 1px solid #e5e5e5;
+    width: 90%;
     &.active {
       background-color: #b70004;
 
