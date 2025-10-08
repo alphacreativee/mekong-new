@@ -1,4 +1,5 @@
 .donut {
+  position: relative;
   .arc {
     cursor: pointer;
   }
@@ -12,12 +13,23 @@
     user-select: none;
     border-bottom: 1px solid #e5e5e5;
     width: 90%;
+    @media (max-width: 991px) {
+      border-bottom: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
     &.active {
       background-color: #b70004;
 
       p,
       .panel-title {
         color: #fff;
+        @media (max-width: 991px) {
+          color: #000;
+        }
+      }
+      @media (max-width: 991px) {
+        background-color: transparent;
       }
     }
   }
@@ -25,6 +37,11 @@
     display: flex;
     gap: 15px;
     justify-content: center;
+    @media (max-width: 991px) {
+      position: absolute;
+      bottom: 0;
+      z-index: 6;
+    }
   }
 
   .arrow-btn {
@@ -92,6 +109,11 @@
     .panel-title {
       margin-bottom: 8px;
       font-weight: bold;
+    }
+  }
+  &-wrapper {
+    @media (max-width: 991px) {
+      margin-bottom: 84px;
     }
   }
 }

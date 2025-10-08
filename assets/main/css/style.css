@@ -76,6 +76,9 @@ body {
   -moz-osx-font-smoothing: grayscale !important;
 }
 
+.donut {
+  position: relative;
+}
 .donut .arc {
   cursor: pointer;
 }
@@ -92,6 +95,13 @@ body {
   border-bottom: 1px solid #e5e5e5;
   width: 90%;
 }
+@media (max-width: 991px) {
+  .donut .dbcontent {
+    border-bottom: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
 .donut .dbcontent.active {
   background-color: #b70004;
 }
@@ -99,10 +109,28 @@ body {
 .donut .dbcontent.active .panel-title {
   color: #fff;
 }
+@media (max-width: 991px) {
+  .donut .dbcontent.active p,
+  .donut .dbcontent.active .panel-title {
+    color: #000;
+  }
+}
+@media (max-width: 991px) {
+  .donut .dbcontent.active {
+    background-color: transparent;
+  }
+}
 .donut .nav-arrows {
   display: flex;
   gap: 15px;
   justify-content: center;
+}
+@media (max-width: 991px) {
+  .donut .nav-arrows {
+    position: absolute;
+    bottom: 0;
+    z-index: 6;
+  }
 }
 .donut .arrow-btn {
   width: 54px;
@@ -156,6 +184,11 @@ body {
 .donut .panelBox .panel-title {
   margin-bottom: 8px;
   font-weight: bold;
+}
+@media (max-width: 991px) {
+  .donut-wrapper {
+    margin-bottom: 84px;
+  }
 }
 
 .logos {
