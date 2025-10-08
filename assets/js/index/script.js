@@ -92,15 +92,15 @@ function donut() {
     });
   });
 
-  var width = 330,
-    height = 330,
+  var width = 320,
+    height = 320,
     radius = Math.min(width, height) / 2;
 
   var currentIndex = 0;
 
   var arc = d3.svg
     .arc()
-    .innerRadius(radius - 60)
+    .innerRadius(radius - 50)
     .outerRadius(radius - 10);
 
   var pie = d3.layout
@@ -198,7 +198,7 @@ function donut() {
 
   g.each(function (d, i) {
     var group = d3.select(this);
-    var textRadius = (radius - 80 + radius - 5) / 2;
+    var textRadius = (radius - 80 + radius + 10) / 2;
 
     var textArc = d3.svg
       .arc()
