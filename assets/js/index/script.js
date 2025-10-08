@@ -10,6 +10,67 @@ gsap.ticker.add((time) => {
 
 gsap.ticker.lagSmoothing(0);
 // end lenis
+var swiperInstance = null;
+
+function initSwiper() {
+  var panelBox = document.getElementById("panelBox");
+  var dbcontents = panelBox.querySelectorAll(".dbcontent");
+
+  if (window.innerWidth <= 991) {
+    // Mobile: Initialize Swiper
+    if (!swiperInstance) {
+      // Wrap content in swiper structure
+      var swiperWrapper = document.createElement("div");
+      swiperWrapper.className = "swiper-wrapper";
+
+      dbcontents.forEach(function (content) {
+        var slide = document.createElement("div");
+        slide.className = "swiper-slide";
+        slide.appendChild(content.cloneNode(true));
+        swiperWrapper.appendChild(slide);
+      });
+
+      // Clear panelBox and add swiper structure
+      panelBox.innerHTML = "";
+      panelBox.className = "panelBox swiper";
+      panelBox.appendChild(swiperWrapper);
+
+      // Add pagination
+      var pagination = document.createElement("div");
+      pagination.className = "swiper-pagination";
+      panelBox.appendChild(pagination);
+
+      // Initialize Swiper
+      swiperInstance = new Swiper(".swiper", {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        pagination: false,
+        on: {
+          slideChange: function () {
+            // Sync with donut chart
+            if (window.activateDonutArc) {
+              window.activateDonutArc(this.activeIndex);
+            }
+          },
+        },
+      });
+    }
+  } else {
+    // Desktop: Remove Swiper if exists
+    if (swiperInstance) {
+      swiperInstance.destroy(true, true);
+      swiperInstance = null;
+
+      // Restore original structure
+      panelBox.className = "panelBox";
+      panelBox.innerHTML = "";
+      dbcontents.forEach(function (content) {
+        panelBox.appendChild(content);
+      });
+    }
+  }
+}
+
 function donut() {
   // Get seedData from HTML elements
   var seedData = [];
@@ -35,7 +96,7 @@ function donut() {
     height = 330,
     radius = Math.min(width, height) / 2;
 
-  var currentIndex = 0; // Track current active index
+  var currentIndex = 0;
 
   var arc = d3.svg
     .arc()
@@ -65,7 +126,7 @@ function donut() {
       return i === 0 ? "arc active" : "arc";
     })
     .each(function (d, i) {
-      d.index = i; // Store the index in the data
+      d.index = i;
     })
     .on("click", function (d, i) {
       currentIndex = d.index;
@@ -84,32 +145,38 @@ function donut() {
       }
     });
 
-  // Function to activate a specific arc by index
   function activateArc(index) {
-    currentIndex = index; // Update currentIndex
+    currentIndex = index;
     var showContent = seedData[index].content;
 
-    // Remove active class from all .dbcontent elements
-    d3.selectAll(".dbcontent").classed("active", false);
+    if (window.innerWidth <= 991 && swiperInstance) {
+      // Mobile: Slide to the correct slide
+      swiperInstance.slideTo(index);
 
-    // Add active class to the corresponding .dbcontent
-    d3.select(".dbcontent--" + showContent).classed("active", true);
+      // Update active class in swiper slides
+      var slides = document.querySelectorAll(".swiper-slide .dbcontent");
+      slides.forEach(function (slide) {
+        slide.classList.remove("active");
+      });
+      if (slides[index]) {
+        slides[index].classList.add("active");
+      }
+    } else {
+      // Desktop: Use original logic
+      d3.selectAll(".dbcontent").classed("active", false);
+      d3.select(".dbcontent--" + showContent).classed("active", true);
+    }
 
-    // Remove active class from all arcs
     g.classed("active", false);
-
-    // Set active state for the selected arc
     g.each(function (d) {
       if (d.index === index) {
         d3.select(this).classed("active", true);
       }
     });
 
-    // Update colors based on active state
     updateColors();
   }
 
-  // Function to update colors based on active state
   function updateColors() {
     g.selectAll("path").attr("fill", function () {
       return d3.select(this.parentNode).classed("active") ? "#b71c1c" : "#fff";
@@ -121,7 +188,6 @@ function donut() {
     });
   }
 
-  // Set initial colors
   updateColors();
 
   g.append("path")
@@ -130,12 +196,9 @@ function donut() {
       return i === 0 ? "#b71c1c" : "#fff";
     });
 
-  // Add text along the circular path
   g.each(function (d, i) {
     var group = d3.select(this);
     var textRadius = (radius - 80 + radius - 5) / 2;
-    var midAngle = (d.startAngle + d.endAngle) / 2;
-    var flipText = midAngle > Math.PI;
 
     var textArc = d3.svg
       .arc()
@@ -151,8 +214,6 @@ function donut() {
       .style("fill", "none")
       .style("stroke", "none");
 
-    var fontSize = "10px";
-
     group
       .append("text")
       .style("pointer-events", "none")
@@ -166,33 +227,31 @@ function donut() {
           ? "#fff"
           : "#000";
       })
-      .attr("font-size", fontSize)
+      .attr("font-size", "12px")
       .attr("font-weight", "700")
-
+      .attr("letter-spacing", "0.5px")
       .style("text-transform", "uppercase")
       .text(seedData[i].label);
   });
 
-  // Draw the inner circle
   svg
     .append("circle")
     .attr("cx", 0)
     .attr("cy", 0)
-    .attr("r", 85)
+    .attr("r", 90)
     .attr("fill", "#b71c1c");
 
-  // Add "VISION" text in the center
   svg
     .append("text")
     .attr("dy", "0.35em")
     .style("text-anchor", "middle")
     .attr("class", "inner-circle-text")
     .attr("fill", "#fff")
-    .attr("font-size", "24px")
+    .attr("font-size", "40px")
     .attr("font-weight", "bold")
+    .attr("letter-spacing", "2px")
     .text("VISION");
 
-  // Setup navigation buttons
   document.getElementById("prevBtn").addEventListener("click", function () {
     currentIndex = (currentIndex - 1 + seedData.length) % seedData.length;
     activateArc(currentIndex);
@@ -203,12 +262,15 @@ function donut() {
     activateArc(currentIndex);
   });
 
-  // Make activateArc accessible globally for the buttons
   window.activateDonutArc = activateArc;
 }
+
+// Initialize
+
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   donut();
+  initSwiper();
 };
 preloadImages("img").then(() => {
   // Once images are preloaded, remove the 'loading' indicator/class from the body

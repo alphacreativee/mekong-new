@@ -1,5 +1,8 @@
 .donut {
   padding: 0 130px;
+  @media (max-width: 991px) {
+    padding: 0 20px;
+  }
   .dbcontent {
     padding: 16px;
     display: block !important;
@@ -53,6 +56,9 @@
     &-wrapper {
       display: flex;
       align-items: center;
+      @media (max-width: 991px) {
+        justify-content: center;
+      }
     }
   }
   .panelBox {
@@ -67,6 +73,9 @@
       }
       &:nth-child(4) {
         margin-left: 20px;
+      }
+      @media (max-width: 991px) {
+        margin-left: 0 !important;
       }
     }
     .panel-title {

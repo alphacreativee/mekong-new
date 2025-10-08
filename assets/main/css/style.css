@@ -79,6 +79,11 @@ body {
 .donut {
   padding: 0 130px;
 }
+@media (max-width: 991px) {
+  .donut {
+    padding: 0 20px;
+  }
+}
 .donut .dbcontent {
   padding: 16px;
   display: block !important;
@@ -130,6 +135,11 @@ body {
   display: flex;
   align-items: center;
 }
+@media (max-width: 991px) {
+  .donut-chart-wrapper {
+    justify-content: center;
+  }
+}
 .donut .panelBox .dbcontent:nth-child(2) {
   margin-left: 20px;
 }
@@ -139,6 +149,11 @@ body {
 .donut .panelBox .dbcontent:nth-child(4) {
   margin-left: 20px;
 }
+@media (max-width: 991px) {
+  .donut .panelBox .dbcontent {
+    margin-left: 0 !important;
+  }
+}
 .donut .panelBox .panel-title {
   margin-bottom: 8px;
   font-weight: bold;
@@ -146,6 +161,11 @@ body {
 
 .logos {
   padding: 0 130px 90px;
+}
+@media (max-width: 991px) {
+  .logos {
+    padding: 0 20px 48px;
+  }
 }
 .logos-title {
   margin-bottom: 48px;
@@ -163,10 +183,21 @@ body {
   grid-template-columns: repeat(6, 1fr);
   gap: 48px 20px;
 }
+@media (max-width: 991px) {
+  .logos-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+}
 .logos-img {
   width: 180px;
   height: auto;
   margin-bottom: 24px;
+}
+@media (max-width: 991px) {
+  .logos-img {
+    width: 130px;
+  }
 }
 .logos-img img {
   width: 100%;
