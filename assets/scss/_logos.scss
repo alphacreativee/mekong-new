@@ -23,10 +23,19 @@
       gap: 32px;
     }
   }
+  &-item {
+    &:hover {
+      .logos-img img {
+        transform: scale(1.05);
+      }
+    }
+  }
   &-img {
     width: 180px;
     height: auto;
     margin-bottom: 24px;
+    border: 1px solid #e5e5e5;
+    overflow: hidden;
     @media (max-width: 991px) {
       width: 130px;
     }
@@ -34,6 +43,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.3s;
     }
   }
 }

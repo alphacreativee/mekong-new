@@ -1,5 +1,8 @@
 .donut {
   padding: 0 130px;
+  .arc {
+    cursor: pointer;
+  }
   @media (max-width: 991px) {
     padding: 0 20px;
   }
